@@ -82,7 +82,7 @@ Special01Material.prototype.turnOff = function(){
     }.bind(this)});
 }
 
-Special01Material.prototype.update = function(dt){
+Special01Material.prototype.onUpdate = function(dt){
     this.uniforms.uuOpacity.value = 0.1 * Math.random() + 0.6;
 
     this.uniforms.uTime.value += dt;
