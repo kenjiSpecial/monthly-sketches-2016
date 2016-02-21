@@ -13,18 +13,15 @@ window.app = {
     }
 };
 
-var month = 0;
-var matArray = [
-    './js/01/main-mat'
-];
-var matUrl = matArray[month];
+var month = 1;
 
-//var BoilerMat = require('./js/boilerplate/main-mat');
-var SpecialMat = require('./js/01/main-mat');
-//import SpecialMat from './js/02/main-mat';
+//var SpecialMat = require('./js/boilerplate/main-mat');
+//var SpecialMat = require('./js/01/main-mat');
+import SpecialMat from './js/02/main-mat';
 
 var mat;
 var prevTime;
+var mouseX = 0, mouseY = 0;
 
 var Loader = require('./js/loader');
 
@@ -63,7 +60,6 @@ function onAssetsLoaded(){
     mat = new SpecialMat();
 
     mesh = new THREE.Mesh(geometry, mat);
-    //mesh.rotation.x = Math.PI;
 
     scene.add(mesh);
 
@@ -71,6 +67,7 @@ function onAssetsLoaded(){
     onResize();
 
     window.addEventListener('resize', onResize);
+    window.addEventListener('mousemove', onMouseMove);
 
     raf(loop);
 }
@@ -79,7 +76,7 @@ function loop(){
     var curTime = performance.now();
     var dt = (curTime - prevTime)/1000
 
-    mat.update(dt);
+    mat.onUpdate(dt, renderer, mouseX, mouseY);
     renderer.render(scene, camera)
 
     prevTime = curTime;
@@ -94,11 +91,16 @@ function onResize(ev){
     camera.bottom = -window.innerHeight / 2;
     camera.updateProjectionMatrix();
 
-    mat.onResize();
+    mat.onResize(renderer);
 
     mesh.geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
 
     renderer.render(scene, camera)
 }
+
+function onMouseMove(ev){
+    mouseX = ev.clientX;
+    mouseY = ev.clientY;
+};
 
 loadStart();
