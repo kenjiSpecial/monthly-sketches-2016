@@ -5,8 +5,8 @@ var glslify = require('glslify');
 
 var Special01Material = function(){
     var bgImage = window.app.assets.texture['spBg'].image;
-    window.app.assets.texture['spBg'].minFilter = window.app.assets.texture['spBg'].magFilter = THREE.LinearFilter;
-    window.app.assets.texture['spBg'].format = THREE.RGBAFormat;
+    //window.app.assets.texture['spBg'].minFilter = window.app.assets.texture['spBg'].magFilter = THREE.LinearFilter;
+    //window.app.assets.texture['spBg'].format = THREE.RGBAFormat;
 
     this.uniforms = {
         uTime : {type :"f", value: 0 },

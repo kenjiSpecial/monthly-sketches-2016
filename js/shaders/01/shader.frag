@@ -14,10 +14,10 @@ uniform sampler2D bgTexture;
 
 
 void main(){
-    vec2 margin = vec2( (windowSize.x - bgSize.x)/2., 40.);
+    vec2 margin = vec2( (windowSize.x - bgSize.x/2.)/2., 40.);
     vec2 customUv;
-    customUv.x = (vUv.x * windowSize.x - margin.x)/bgSize.x;
-    customUv.y = (gl_FragCoord.y - margin.y)/bgSize.y;
+    customUv.x = (vUv.x * windowSize.x - margin.x)/bgSize.x * 2.;
+    customUv.y = (gl_FragCoord.y - margin.y)/bgSize.y * 2.;
 
     vec4 col;
     if(customUv.x > 0. && customUv.x < 1. && customUv.y > 0. && customUv.y < 1. ){
@@ -25,7 +25,6 @@ void main(){
     }else{
         col = mix( vec4(0., 0., 0., 1.0), texture2D(texture, vUv).rgba, uOpacity);
     }
-
 
     gl_FragColor = col;
 }
