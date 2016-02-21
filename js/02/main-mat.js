@@ -89,6 +89,7 @@ export default class SkinnedMesh extends THREE.ShaderMaterial {
         renderer.render(this.sceneRTT, this.cameraRTT, this.rTexture, true);
     }
     onResize (renderer){
+        this.uniforms.windowSize.value = new THREE.Vector2(window.innerWidth, window.innerHeight);
         this.rTextureWidth  = window.innerWidth;
         this.rTextureHeight = window.innerHeight;
 
@@ -96,7 +97,5 @@ export default class SkinnedMesh extends THREE.ShaderMaterial {
 
         this.cameraRTT.aspect = window.innerWidth / window.innerHeight;
         this.cameraRTT.updateProjectionMatrix();
-
-        renderer.render(this.sceneRTT, this.cameraRTT, this.rTexture, true);
     }
 }
