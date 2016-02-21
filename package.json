@@ -16,6 +16,6 @@
   },
   "scripts": {
     "start": "budo app.js --live -- -t [babelify --presets es2015] -t glslify",
-    "build": "browserify app.js -t glslify -t [babelify --presets es2015] | uglifyjs -nm > example/bundle.js"
+    "build": "browserify app.js -t glslify -t [babelify --presets es2015] | uglifyjs -nm > monthly/bundle.js"
   }
 }
