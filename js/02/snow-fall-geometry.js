@@ -3,7 +3,8 @@ var THREE = require('three');
 export default class SnowFallGeometry extends THREE.BufferGeometry{
     constructor(){
         super()
-        this.count = 8000;
+        if(window.app.device.isIPhone)  this.count = 8000;
+        else                            this.count = 1000;
         var positionArray  =new Float32Array(this.count * 3);
         var scaleArray     = new Float32Array(this.count);
         var alphaArray     = new Float32Array(this.count);

@@ -5,6 +5,7 @@ uniform float uState;
 uniform float uMouse;
 uniform float uOpacity;
 uniform float uuOpacity;
+uniform float uDeviceRatio;
 
 uniform vec2 windowSize;
 uniform vec2 bgSize;
@@ -14,7 +15,7 @@ uniform sampler2D bgTexture;
 
 
 void main(){
-    vec2 margin = vec2( (windowSize.x - bgSize.x/2.)/2., 40.);
+    vec2 margin = vec2( (windowSize.x - bgSize.x/2.)/2., 40. * uDeviceRatio);
     vec2 customUv;
     customUv.x = (vUv.x * windowSize.x - margin.x)/bgSize.x * 2.;
     customUv.y = (gl_FragCoord.y - margin.y)/bgSize.y * 2.;

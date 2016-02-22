@@ -10,6 +10,9 @@ window.THREE = require('three');
 window.app = {
     assets : {
         texture : {}
+    },
+    device : {
+        isIPhone : false
     }
 };
 
@@ -21,12 +24,25 @@ import SpecialMat from './js/02/main-mat';
 
 var mat;
 var prevTime;
-var mouseX = 0, mouseY = 0;
+var mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
 
 var Loader = require('./js/loader');
 
 document.body.style.margin = "0";
 
+var appVer        = navigator.appVersion;
+var searchVersion = /\s(\d)_\d/;
+var searchDevice  = /\s[(](\w+\s?\w*)[;]\s/;
+var isIPhone      = false;
+var isIPad        = false;
+if (searchVersion.exec(appVer) && searchDevice.exec(appVer)){
+    var deviceVersion = searchVersion.exec(appVer)[1];
+    if ("iPhone"           == searchDevice.exec(appVer)[1]){ isIPhone = deviceVersion; }
+    if ("iPhone Simulator" == searchDevice.exec(appVer)[1]){ isIPhone = deviceVersion; }
+    if ("iPad"             == searchDevice.exec(appVer)[1]){ isIPad   = deviceVersion; }
+}
+
+window.app.device.isIPhone = isIPhone;
 
 var renderer, camera, mesh, mat, scene;
 var loader;
@@ -67,7 +83,9 @@ function onAssetsLoaded(){
     onResize();
 
     window.addEventListener('resize', onResize);
-    window.addEventListener('mousemove', onMouseMove);
+    if(window.app.device.isIPhone){
+        window.addEventListener('touchmove',  onTouchMove);
+    }else window.addEventListener('mousemove', onMouseMove);
 
     raf(loop);
 }
@@ -101,6 +119,13 @@ function onResize(ev){
 function onMouseMove(ev){
     mouseX = ev.clientX;
     mouseY = ev.clientY;
+};
+
+function onTouchMove(ev){
+    mouseX = ev.touches[0].clientX;
+    mouseY = ev.touches[0].clientY;
+
+    ev.preventDefault();
 };
 
 loadStart();

@@ -12,10 +12,11 @@ export default class SkinnedMesh extends THREE.ShaderMaterial {
             uTime : {type :"f", value: 0 },
             uState : {type: "f", value: 0 },
             uOpacity : {type: "f", value: 0 },
+            uDeviceRatio : {type: "f", value: window.devicePixelRatio },
             uuOpacity : {type: "f", value: 0.9 + 0.1 * Math.random() },
             texture :   { type: "t",  value: null },
             bgTexture : { type: "t", value: window.app.assets.texture['spBg']},
-            bgSize    : { type: "v2", value: new THREE.Vector2( bgImage.width, bgImage.height )},
+            bgSize    : { type: "v2", value: new THREE.Vector2( bgImage.width * window.devicePixelRatio, bgImage.height * window.devicePixelRatio )},
             windowSize: { type: "v2", value: new THREE.Vector2( window.innerWidth, window.innerHeight ) }
         }
 
@@ -55,6 +56,7 @@ export default class SkinnedMesh extends THREE.ShaderMaterial {
         this.snowWrapperObject = new SnowWrapperObject();
         this.sceneRTT.add(this.snowWrapperObject);
 
+        this.easing = window.app.device.isIPhone ? 0.12 : 0.08;
 
     }
 
@@ -76,8 +78,8 @@ export default class SkinnedMesh extends THREE.ShaderMaterial {
     }
 
     onUpdate (dt, renderer, mouseX, mouseY ){
-        this.cameraRTT.position.x += ( (mouseX - window.innerWidth/2) /2 - this.cameraRTT.position.x ) * 0.08;
-        this.cameraRTT.position.y += ( (mouseY - window.innerHeight/2) - this.cameraRTT.position.y ) * 0.08;
+        this.cameraRTT.position.x += ( (mouseX - window.innerWidth/2) - this.cameraRTT.position.x ) * this.easing;
+        this.cameraRTT.position.y += ( (mouseY ) - this.cameraRTT.position.y ) * this.easing;
 
         this.cameraRTT.lookAt( this.sceneRTT.position );
 
