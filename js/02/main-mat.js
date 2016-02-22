@@ -16,7 +16,7 @@ export default class SkinnedMesh extends THREE.ShaderMaterial {
             uuOpacity : {type: "f", value: 0.9 + 0.1 * Math.random() },
             texture :   { type: "t",  value: null },
             bgTexture : { type: "t", value: window.app.assets.texture['spBg']},
-            bgSize    : { type: "v2", value: new THREE.Vector2( bgImage.width * window.devicePixelRatio, bgImage.height * window.devicePixelRatio )},
+            bgSize    : { type: "v2", value: new THREE.Vector2( bgImage.width , bgImage.height )},
             windowSize: { type: "v2", value: new THREE.Vector2( window.innerWidth, window.innerHeight ) }
         }
 
