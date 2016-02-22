@@ -79,7 +79,7 @@ export default class SkinnedMesh extends THREE.ShaderMaterial {
 
     onUpdate (dt, renderer, mouseX, mouseY ){
         this.cameraRTT.position.x += ( (mouseX - window.innerWidth/2) - this.cameraRTT.position.x ) * this.easing;
-        this.cameraRTT.position.y += ( (mouseY ) - this.cameraRTT.position.y ) * this.easing;
+        this.cameraRTT.position.y += ( (mouseY - window.innerHeight/3 )/2 - this.cameraRTT.position.y ) * this.easing;
 
         this.cameraRTT.lookAt( this.sceneRTT.position );
 
